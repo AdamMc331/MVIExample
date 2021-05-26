@@ -7,9 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.lifecycleScope
 import com.adammcneilly.mviexample.MainActivity
 import com.adammcneilly.mviexample.R
 import com.adammcneilly.mviexample.databinding.FragmentLoginBinding
+import kotlinx.coroutines.flow.collect
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
@@ -19,6 +22,13 @@ class LoginFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+
+        // Whenever the view is resumed, subscribe to our viewmodel's view state StateFlow
+        lifecycleScope.launchWhenResumed {
+            viewModel.viewState.collect { viewState ->
+                processViewState(viewState)
+            }
+        }
     }
 
     override fun onCreateView(
@@ -30,22 +40,31 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Whenever a relevant UI action occurs like a text change or a button click, proxy that
+     * to the view model to handle.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.emailInput.doOnTextChanged { text, _, _, _ ->
+            viewModel.emailChanged(text?.toString().orEmpty())
+        }
+
+        binding.passwordInput.doOnTextChanged { text, _, _, _ ->
+            viewModel.passwordChanged(text?.toString().orEmpty())
+        }
+
         binding.signInButton.setOnClickListener {
-            navigateToProfile()
+            viewModel.signInButtonClicked()
         }
     }
 
-    /**
-     * Once the user has completed login, we should navigate them to the profile screen.
-     *
-     * This isn't the best practice to cast the activity directly - instead we should consider
-     * interfaces or the navigation component, but we cut corners here to keep the contrived
-     * sample focused on MVI.
-     */
-    private fun navigateToProfile() {
-        (requireActivity() as MainActivity).navigateToProfile()
+    private fun processViewState(viewState: LoginViewState) {
+        binding.progressBar.visibility = if (viewState.showProgressBar) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 }
