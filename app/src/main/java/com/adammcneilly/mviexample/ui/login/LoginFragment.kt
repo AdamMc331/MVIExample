@@ -38,6 +38,13 @@ class LoginFragment : Fragment() {
         }
     }
 
+    /**
+     * Once the user has completed login, we should navigate them to the profile screen.
+     *
+     * This isn't the best practice to cast the activity directly - instead we should consider
+     * interfaces or the navigation component, but we cut corners here to keep the contrived
+     * sample focused on MVI.
+     */
     private fun navigateToProfile() {
         (requireActivity() as MainActivity).navigateToProfile()
     }

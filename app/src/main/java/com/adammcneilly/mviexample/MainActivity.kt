@@ -17,6 +17,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * To navigate to the profile screen, we'll run a Fragment transaction to replace the login
+     * screen with the profile screen.
+     */
     fun navigateToProfile() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, ProfileFragment())
