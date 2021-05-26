@@ -1,4 +1,4 @@
-package com.adammcneilly.mviexample.ui.main
+package com.adammcneilly.mviexample.ui.login
 
 import androidx.lifecycle.ViewModel
 
