@@ -2,6 +2,8 @@ package com.adammcneilly.mviexample.ui.login
 
 import androidx.lifecycle.ViewModel
 import com.adammcneilly.mviexample.LoggingMiddleware
+import com.adammcneilly.mviexample.LoginNetworkingMiddleware
+import com.adammcneilly.mviexample.ProdLoginService
 import com.adammcneilly.mviexample.redux.Store
 import kotlinx.coroutines.flow.StateFlow
 
@@ -19,6 +21,9 @@ class LoginViewModel : ViewModel() {
         reducer = LoginReducer(),
         middlewares = listOf(
             LoggingMiddleware(),
+            LoginNetworkingMiddleware(
+                loginRepository = ProdLoginService(),
+            ),
         )
     )
 
