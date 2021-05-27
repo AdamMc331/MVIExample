@@ -30,9 +30,17 @@ class LoginReducer : Reducer<LoginViewState, LoginAction> {
             is LoginAction.LoginFailed -> {
                 stateAfterLoginFailed(currentState)
             }
+            LoginAction.InvalidEmailSubmitted -> {
+                stateWithInvalidEmailError(currentState)
+            }
             else -> currentState
         }
     }
+
+    private fun stateWithInvalidEmailError(currentState: LoginViewState) =
+        currentState.copy(
+            emailError = "Please enter an email address.",
+        )
 
     private fun stateAfterLoginStarted(currentState: LoginViewState) =
         currentState.copy(

@@ -66,5 +66,7 @@ class LoginFragment : Fragment() {
         } else {
             View.GONE
         }
+
+        binding.emailInputLayout.error = viewState.emailError
     }
 }
