@@ -13,7 +13,7 @@ interface Middleware<S: State, A: Action> {
      * call this with a _new_ action, and not trigger the same action again or risk ending up in a
      * loop.
      */
-    fun process(
+    suspend fun process(
         action: A,
         currentState: S,
         store: Store<S, A>,

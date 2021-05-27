@@ -11,7 +11,7 @@ import com.adammcneilly.mviexample.redux.Store
  * that we can use this for debugging.
  */
 class LoggingMiddleware<S: State, A: Action> : Middleware<S, A> {
-    override fun process(action: A, currentState: S, store: Store<S, A>) {
+    override suspend fun process(action: A, currentState: S, store: Store<S, A>) {
         Log.v(
             "LoggingMiddleware",
             "Processing action: $action; Current state: $currentState"

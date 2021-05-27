@@ -1,6 +1,5 @@
 package com.adammcneilly.mviexample.ui.login
 
-import android.util.Log
 import com.adammcneilly.mviexample.redux.Reducer
 
 /**

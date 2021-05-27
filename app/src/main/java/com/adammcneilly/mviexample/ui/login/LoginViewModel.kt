@@ -1,11 +1,13 @@
 package com.adammcneilly.mviexample.ui.login
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.adammcneilly.mviexample.LoggingMiddleware
 import com.adammcneilly.mviexample.LoginNetworkingMiddleware
 import com.adammcneilly.mviexample.ProdLoginService
 import com.adammcneilly.mviexample.redux.Store
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 /**
  * The [LoginViewModel] is responsible for controlling the UI logic of the login screen. It will
@@ -31,16 +33,25 @@ class LoginViewModel : ViewModel() {
 
     fun emailChanged(newEmail: String) {
         val action = LoginAction.EmailChanged(newEmail)
-        store.dispatch(action)
+
+        viewModelScope.launch {
+            store.dispatch(action)
+        }
     }
 
     fun passwordChanged(newPassword: String) {
         val action = LoginAction.PasswordChanged(newPassword)
-        store.dispatch(action)
+
+        viewModelScope.launch {
+            store.dispatch(action)
+        }
     }
 
     fun signInButtonClicked() {
         val action = LoginAction.SignInButtonClicked
-        store.dispatch(action)
+
+        viewModelScope.launch {
+            store.dispatch(action)
+        }
     }
 }
