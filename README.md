@@ -4,7 +4,7 @@ This application was streamed live on Twitch to demonstrate how to build an appl
 
 You can find the VOD here for now: https://www.twitch.tv/videos/1036306656
 
-And on YouTube: **LINK COMING SOON**. 
+And on YouTube: https://www.youtube.com/watch?v=wTJX_lWdh60
 
 Much of the codebase is documented, but you can expect a blog post coming soon as well. 
 
