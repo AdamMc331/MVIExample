@@ -12,9 +12,9 @@ import kotlinx.coroutines.flow.StateFlow
  * @param[middlewares] This is a list of [Middleware] entities for handling any side effects
  * for actions dispatched to this store.
  */
-class Store<S: State, A: Action>(
+class Store<S : State, A : Action>(
     initialState: S,
-    private val reducer: Reducer<S, A>,
+    private val reducers: List<Reducer<S, A>>,
     private val middlewares: List<Middleware<S, A>> = emptyList(),
 ) {
 
@@ -29,7 +29,6 @@ class Store<S: State, A: Action>(
             middleware.process(action, currentState, this)
         }
 
-        val newState = reducer.reduce(currentState, action)
-        _state.value = newState
+        reducers.forEach { reducer -> _state.value = reducer.reduce(currentState, action) }
     }
 }

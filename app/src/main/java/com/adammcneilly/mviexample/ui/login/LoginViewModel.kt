@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 class LoginViewModel : ViewModel() {
     private val store = Store(
         initialState = LoginViewState(),
-        reducer = LoginReducer(),
+        reducers = listOf(LoginReducer(), LoginErrorReducer()),
         middlewares = listOf(
             LoggingMiddleware(),
             LoginNetworkingMiddleware(
